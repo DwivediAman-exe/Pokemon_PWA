@@ -9,6 +9,8 @@ window.addEventListener('load', (e) => {
   pokemonList.addEventListener('change', (e) => {
     showPokemonCard(e.target.value);
   });
+
+  registerServiceWorker();
 });
 
 async function getPokemonList() {
@@ -22,10 +24,23 @@ async function getPokemonList() {
 }
 
 async function showPokemonCard(url) {
-  const response = await fetch(url);
-  const json = await response.json();
+  try {
+    const response = await fetch(url);
+    const json = await response.json();
 
-  pokemonCard.innerHTML = createCard(json);
+    pokemonCard.innerHTML = createCard(json);
+  } catch (error) {
+    console.log('Network is unavailable');
+    pokemonCard.innerHTML = offlineCard();
+  }
+}
+
+function offlineCard() {
+  return `
+		<div class="card-header">
+			<p>Network is unavailable</p>
+		</div>
+	`;
 }
 
 function createCard(pokemon) {
@@ -43,4 +58,14 @@ function createCard(pokemon) {
 			<div class="badge p-2 m-1 bg-danger text-light">Experience: ${pokemon.base_experience}</div>	
 		</div>
 	`;
+}
+
+async function registerServiceWorker() {
+  if ('serviceWorker' in navigator) {
+    try {
+      await navigator.serviceWorker.register('sw.js');
+    } catch {
+      console.log('Failed: ', error);
+    }
+  }
 }
