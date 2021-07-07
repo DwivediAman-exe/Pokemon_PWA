@@ -1,3 +1,7 @@
+html {
+  overflow-x: hidden;
+}
+
 body {
-  background-color: rgba(220, 20, 60, 0.342) !important;
+  background-color: rgba(44, 41, 41, 0.931) !important;
 }
