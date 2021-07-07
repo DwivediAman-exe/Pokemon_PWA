@@ -1,6 +1,6 @@
 {
   "name": "Pokemon App",
-  "short_name": "Pokemon PWA app",
+  "short_name": "Pokemon PWA App",
   "theme_color": "#ed143d",
   "background_color": "#fff",
   "display": "standalone",
